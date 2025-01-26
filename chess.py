@@ -16,10 +16,7 @@ castle = {-1: {0:True, 7:True}, 1: {0:True, 7:True}}
 turn = 1
 king_pos = {-1: {'x': 4, 'y': 7}, 1: {'x': 4, 'y': 0}}
 
-pieces = {0: '', 1: 'w_pawn', 2: 'w_rook', 3: 'w_knight', 4: 'w_bishop', 5: 'w_queen', 6: 'w_king', -1: 'b_pawn', -2: 'b_rook', -3: 'b_knight', -4: 'b_bishop', -5: 'b_queen', -6: 'b_king'}
-pieces2 = {0: ' ', 1: '\u2659', 2: '\u2656', 3: '\u2658', 4: '\u2657', 5: '\u2655', 6: '\u2654', -1: '\u265F', -2: '\u265C', -3: '\u265E', -4: '\u265D', -5: '\u265B', -6: '\u265A'}
 piece_letters = ['', '', 'R', 'N', 'B', 'Q', 'K']
-
 xnames = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 ynames = ['1', '2', '3', '4', '5', '6', '7', '8']
 
