@@ -229,7 +229,8 @@ def legal_moves():
     return t1
 
 def from_algebraic(alg):
-    res = ''
+    res = 0
+    mult = 1
     prom = 0
     piece = 0
     moves_num = 0
@@ -272,15 +273,14 @@ def from_algebraic(alg):
             error = True
             for m in l:
                 if piece == abs(board[m[1]][m[0]]) and m[2] == bx and m[3] == by and (ax == -1 or m[0] == ax) and (ay == -1 or m[1] == ay) and (len(m) == 4 or prom == m[4]):
-                    res += bin(l.index(m))[2:].zfill(len(bin(len(l))[2:]))
+                    res += l.index(m) * mult
+                    mult *= len(l)
                     do_move(m)
                     error = False
                     break
             if error: raise Exception('Invalid move.')
-    res += '0'*(-len(res)%8)
-    print(len(res))
-    res = bin(moves_num)[2:].zfill(14) + bin(score)[2:].zfill(2) + res
-    res = bytes(int(res[i : i + 8], 2) for i in range(0, len(res), 8))
+    res = res.to_bytes((res.bit_length() + 7) // 8)
+    res = (moves_num*4 + score).to_bytes(2) + res
     res = base64.b64encode(res).decode()
     return res
 
@@ -291,12 +291,12 @@ def from_code(code):
     code = ''.join(bin(i)[2:].zfill(8) for i in code)
     moves_num = int(code[:14], 2)
     score = int(code[14:16], 2)
-    code = code[16:]
+    code = int(code[16:], 2)
     res = ''
     l = legal_moves()
     for n in range(moves_num):
-        m = l[int(code[:len(bin(len(l))[2:])], 2)]
-        code = code[len(bin(len(l))[2:]):]
+        m = l[code%len(l)]
+        code = code // len(l)
 
         if abs(board[m[1]][m[0]]) == 6 and abs(m[2] - m[0]) == 2:
             if m[2] - m[0] == 2:
