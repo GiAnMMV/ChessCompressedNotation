@@ -1,4 +1,3 @@
-from tkinter import *
 import base64
 
 board = [
